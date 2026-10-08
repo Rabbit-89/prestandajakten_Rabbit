@@ -1,20 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
-// TODO: look into "lazy loading" at some point, ran out of time /M
-import LoginView from '../views/LoginView.vue'
-import DashboardView from '../views/DashboardView.vue'
-import InvoicesView from '../views/InvoicesView.vue'
-import MoveFormView from '../views/MoveFormView.vue'
-import ProfileView from '../views/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/login', component: LoginView },
-    { path: '/', component: DashboardView, meta: { requiresAuth: true } },
-    { path: '/fakturor', component: InvoicesView, meta: { requiresAuth: true } },
-    { path: '/flytt', component: MoveFormView, meta: { requiresAuth: true } },
-    { path: '/profil', component: ProfileView, meta: { requiresAuth: true } }
+    { path: '/login', component: () => import('../views/LoginView.vue') },
+    { path: '/', component: () => import('../views/DashboardView.vue'), meta: { requiresAuth: true } },
+    { path: '/fakturor', component: () => import('../views/InvoicesView.vue'), meta: { requiresAuth: true } },
+    { path: '/flytt', component: () => import('../views/MoveFormView.vue'), meta: { requiresAuth: true } },
+    { path: '/profil', component: () => import('../views/ProfileView.vue'), meta: { requiresAuth: true } }
   ]
 })
 
